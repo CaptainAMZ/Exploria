@@ -1,9 +1,11 @@
 import { useQueryParams } from "@/hooks/Query/useQuery";
 import { getSingleQuery } from "@/utils/Query/GetSingleQuery";
+import { useSearchParams } from "next/navigation";
 import React from "react";
 
 const Pagination = ({ pagesCount, currentPage, query }) => {
   const { updateQueryParam } = useQueryParams();
+  const searchParams = useSearchParams();
 
   const nextPageHandler = () => {
     const queryValue = getSingleQuery(query);

@@ -4,23 +4,28 @@ import Sort from "@/components/modules/Sort/Sort";
 import Table from "@/components/modules/Table/Table";
 import Pagination from "@/components/modules/Pagination/Pagination";
 import usePagination from "@/hooks/Paginate/usePaginate";
-import { getSingleQuery } from "@/utils/Query/GetSingleQuery";
 import useSort from "@/hooks/Sort/useSort";
+import { useSearchParams } from "next/navigation";
+import { getSingleQuery } from "@/utils/Query/GetSingleQuery";
 
 const TableTemplate = ({ data, pageQuery, sortQuery }) => {
   const [queryValue, setQueryValue] = useState(1);
   const { sortedData } = useSort(data, sortQuery);
+  const searchParams = useSearchParams();
   const { currentPageData, pagesCount } = usePagination(
     sortedData,
     queryValue,
     5
   );
 
-  const query = getSingleQuery(pageQuery);
-
   useEffect(() => {
+    const scrollPosition = sessionStorage.getItem("scrollPosition");
+    if (scrollPosition) {
+      window.scrollTo(0, parseInt(scrollPosition));
+    }
+    const query = getSingleQuery(pageQuery);
     setQueryValue(query || 1);
-  }, [query]);
+  }, [searchParams.get(pageQuery), searchParams.get(sortQuery)]);
 
   return (
     <>
