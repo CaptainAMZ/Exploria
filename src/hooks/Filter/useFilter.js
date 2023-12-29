@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 
 const useDataFilter = (data, filterProperties, filterValue) => {
   const filteredData = useMemo(() => {

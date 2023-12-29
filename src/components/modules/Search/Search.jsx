@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getSingleQuery } from "@/utils/Query/GetSingleQuery";
 
@@ -9,7 +9,6 @@ const Search = ({ link }) => {
     setValue(e.target.value);
   };
 
-  const searchTerm = getSingleQuery("search_term");
   const router = useRouter();
 
   const handleSubmit = (e) => {
@@ -18,8 +17,9 @@ const Search = ({ link }) => {
   };
 
   useEffect(() => {
+    const searchTerm = getSingleQuery("search_term");
     setValue(searchTerm);
-  }, [searchTerm]);
+  }, []);
 
   return (
     <form onSubmit={handleSubmit} className="flex-1">
@@ -48,7 +48,7 @@ const Search = ({ link }) => {
           </svg>
         </div>
         <input
-          value={value}
+          value={value || ""}
           onChange={onChangeHandler}
           type="search"
           id="default-search"
