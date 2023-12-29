@@ -16,7 +16,7 @@ const TableTemplate = ({ data, pageQuery, sortQuery }) => {
     5
   );
 
-  const query = getSingleQuery("page");
+  const query = getSingleQuery(pageQuery);
 
   useEffect(() => {
     setQueryValue(query || 1);

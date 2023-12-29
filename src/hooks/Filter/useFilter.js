@@ -8,7 +8,7 @@ const useDataFilter = (data, filterProperties, filterValue) => {
       filtered[property] = {
         query: `${property}`,
         data: data.filter((item) =>
-          item[property].toLowerCase().includes(filterValue.toLowerCase())
+          item[property].toLowerCase().includes(filterValue?.toLowerCase())
         ),
       };
     });

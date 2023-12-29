@@ -2,20 +2,23 @@
 import TableTemplate from "@/components/templates/TableTemplate";
 import useDataFilter from "@/hooks/Filter/useFilter";
 import { getSingleQuery } from "@/utils/Query/GetSingleQuery";
+import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const Layout = ({ data }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const searchQuery = getSingleQuery("search_term");
   const { filteredData } = useDataFilter(
     data,
     ["name", "address", "phone_number"],
-    searchQuery
+    searchTerm
   );
 
+  const searchParams = useSearchParams();
+
   useEffect(() => {
+    const searchQuery = getSingleQuery("search_term");
     setSearchTerm(searchQuery);
-  }, [searchQuery]);
+  }, [searchParams.get("search_term")]);
 
   return (
     <>
